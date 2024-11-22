@@ -1,33 +1,25 @@
 import React from "react";
 import Cars from "../../../ui/cars";
+import { data } from "../../../data/moock";
+
+import { useNavigate } from "react-router-dom";
 
 const Body = () => {
-  const data = [
-    {
-      title: "Título 1",
-      contenido: "Este es el contenido del título 1.",
-      documentos: [{ name: "documento1.pdf" }, { name: "documento2.pdf" }],
-    },
-    {
-      title: "Título 2",
-      contenido: "Este es el contenido del título 2.",
-      documentos: [
-        { name: "documento3.pdf" },
-        { name: "documento4.pdf" },
-        { name: "documento5.pdf" },
-      ],
-    },
-  ];
+  const navigate = useNavigate();
+
+  const openCardDetails = (cardData) => {
+    navigate(`/post/${cardData.title}`);
+  };
 
   return (
-    <div className="absolute w-[80%] bg-secondary rounded-t-3xl border  h-full top-[80vh] p-4 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+    <div className="relative w-[90%] bg-white rounded-t-xl border -top-[20vh] p-4 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 backdrop-blur-lg group">
       {data.map((item, index) => (
         <Cars
           key={index}
           title={item.title}
           contenido={item.contenido}
           documentos={item.documentos}
-          onClick={() => console.log(`Clicked: ${item.title}`)}
+          onClick={() => openCardDetails(item)}
         />
       ))}
     </div>
